@@ -1,20 +1,27 @@
 from math import sqrt
 
 
+points = [(1, 2), (3, 4), (5, 6), (7, 8)]
+
+
 def main():
-    needConversion1 = input("Enter first point using (x, y) format: ").split(", ")
-    needConversion2 = input("Enter second point using (x, y) format: ").split(", ")
-    x_1, y_1, x_2, y_2 = map(lambda x: int(x), needConversion1 + needConversion2)
-    points = [(x_1, y_1), (x_2, y_2)]
-    print(f"{euclideanDistance(points):.2f}")
+    distances = addDistances()
+    print(min(distances))
 
 
-def euclideanDistance(points):
+def euclideanDistance(firstPoint, secondPoint):
     total = 0
-    firstPoint, secondPoint = points
     for x, y in firstPoint, secondPoint:
         total += (x - y) ** 2
     return sqrt(total)
+
+
+def addDistances():
+    return [
+        euclideanDistance(points[i], points[j])
+        for i in range(len(points))
+        for j in range(i + 1, len(points))
+    ]
 
 
 if __name__ == "__main__":
